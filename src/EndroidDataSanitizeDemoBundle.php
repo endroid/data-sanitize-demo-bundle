@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\DataSanitize\Bundle\DataSanitizeDemoBundle;
+namespace Endroid\DataSanitizeDemoBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

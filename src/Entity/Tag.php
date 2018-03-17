@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\DataSanitize\Bundle\DataSanitizeDemoBundle\Entity;
+namespace Endroid\DataSanitizeDemoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

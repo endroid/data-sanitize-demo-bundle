@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\DataSanitize\Bundle\DataSanitizeDemoBundle\Entity;
+namespace Endroid\DataSanitizeDemoBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -31,13 +31,13 @@ class User
     protected $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Endroid\DataSanitize\Bundle\DataSanitizeDemoBundle\Entity\Project", mappedBy="users", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Endroid\DataSanitizeDemoBundle\Entity\Project", mappedBy="users", cascade={"persist"})
      * @ORM\JoinColumn(name="data_sanitize_example_user_project")
      */
     protected $projects;
 
     /**
-     * @ORM\OneToMany(targetEntity="Endroid\DataSanitize\Bundle\DataSanitizeDemoBundle\Entity\Task", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Endroid\DataSanitizeDemoBundle\Entity\Task", mappedBy="user", cascade={"persist"})
      */
     protected $tasks;
 

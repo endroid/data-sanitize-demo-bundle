@@ -7,22 +7,28 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\DataSanitize\Bundle\DataSanitizeDemoBundle\Command;
+namespace Endroid\DataSanitizeDemoBundle\Command;
 
-use Doctrine\ORM\EntityManager;
-use Endroid\DataSanitize\Bundle\DataSanitizeDemoBundle\Entity\Project;
-use Endroid\DataSanitize\Bundle\DataSanitizeDemoBundle\Entity\Tag;
-use Endroid\DataSanitize\Bundle\DataSanitizeDemoBundle\Entity\Task;
-use Endroid\DataSanitize\Bundle\DataSanitizeDemoBundle\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
+use Endroid\DataSanitizeDemoBundle\Entity\Project;
+use Endroid\DataSanitizeDemoBundle\Entity\Tag;
+use Endroid\DataSanitizeDemoBundle\Entity\Task;
+use Endroid\DataSanitizeDemoBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GenerateDataCommand extends ContainerAwareCommand
+final class GenerateDataCommand extends ContainerAwareCommand
 {
-    /**
-     * {@inheritdoc}
-     */
+    private $entityManager;
+
+    public function __construct(?string $name = null, EntityManagerInterface $entityManager)
+    {
+        parent::__construct($name);
+
+        $this->entityManager = $entityManager;
+    }
+
     protected function configure()
     {
         $this
@@ -31,12 +37,9 @@ class GenerateDataCommand extends ContainerAwareCommand
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $manager = $this->getEntityManager();
+        $this->truncateTables();
 
         $projectCount = 8;
         $projectUserCount = 5;
@@ -70,17 +73,30 @@ class GenerateDataCommand extends ContainerAwareCommand
                 ++$currentUser;
                 $project->addUser($user);
             }
-            $manager->persist($project);
+            $this->entityManager->persist($project);
         }
 
-        $manager->flush();
+        $this->entityManager->flush();
     }
 
-    /**
-     * @return EntityManager
-     */
-    protected function getEntityManager()
+    private function truncateTables(): void
     {
-        return $this->getContainer()->get('doctrine.orm.entity_manager');
+        $tableNames = [
+            'data_sanitize_demo_project',
+            'data_sanitize_demo_project_user',
+            'data_sanitize_demo_tag',
+            'data_sanitize_demo_task',
+            'data_sanitize_demo_task_tag',
+            'data_sanitize_demo_user',
+        ];
+
+        foreach ($tableNames as $tableName) {
+            $connection = $this->entityManager->getConnection();
+            $platform = $connection->getDatabasePlatform();
+            $connection->query('SET FOREIGN_KEY_CHECKS=0');
+            $query = $platform->getTruncateTableSql($tableName);
+            $connection->executeUpdate($query);
+            $connection->query('SET FOREIGN_KEY_CHECKS=1');
+        }
     }
 }

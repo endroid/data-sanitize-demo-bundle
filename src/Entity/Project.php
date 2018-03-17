@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Endroid\DataSanitize\Bundle\DataSanitizeDemoBundle\Entity;
+namespace Endroid\DataSanitizeDemoBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -23,71 +23,58 @@ class Project
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $name;
+    private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Endroid\DataSanitize\Bundle\DataSanitizeDemoBundle\Entity\Task", mappedBy="project", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Endroid\DataSanitizeDemoBundle\Entity\Task", mappedBy="project", cascade={"persist"})
      */
-    protected $tasks;
+    private $tasks;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Endroid\DataSanitize\Bundle\DataSanitizeDemoBundle\Entity\User", inversedBy="projects", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Endroid\DataSanitizeDemoBundle\Entity\User", inversedBy="projects", cascade={"persist"})
+     * @ORM\JoinTable(
+     *      name="data_sanitize_demo_project_user",
+     *      joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     * )
      */
-    protected $users;
+    private $users;
 
-    /**
-     * Creates a new instance.
-     */
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
         $this->users = new ArrayCollection();
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return Task[]
-     */
-    public function getTasks()
+    public function getTasks(): array
     {
         return $this->tasks->toArray();
     }
 
-    /**
-     * @param Task[] $tasks
-     */
-    public function setTasks(array $tasks)
+    public function setTasks(array $tasks): void
     {
         foreach ($this->tasks as $task) {
-            if (!in_array($task, $tasks)) {
+            if (!$this->hasTask($task)) {
                 $this->removeTask($task);
             }
         }
@@ -97,20 +84,12 @@ class Project
         }
     }
 
-    /**
-     * @param Task $task
-     *
-     * @return bool
-     */
-    public function hasTask(Task $task)
+    public function hasTask(Task $task): bool
     {
         return $this->tasks->contains($task);
     }
 
-    /**
-     * @param Task $task
-     */
-    public function addTask(Task $task)
+    public function addTask(Task $task): void
     {
         if (!$this->hasTask($task)) {
             $this->tasks->add($task);
@@ -120,10 +99,7 @@ class Project
         }
     }
 
-    /**
-     * @param Task $task
-     */
-    public function removeTask(Task $task)
+    public function removeTask(Task $task): void
     {
         if ($this->hasTask($task)) {
             $this->tasks->removeElement($task);
@@ -133,21 +109,15 @@ class Project
         }
     }
 
-    /**
-     * @return User[]
-     */
-    public function getUsers()
+    public function getUsers(): array
     {
         return $this->users->toArray();
     }
 
-    /**
-     * @param User[] $users
-     */
-    public function setUsers(array $users)
+    public function setUsers(array $users): void
     {
         foreach ($this->users as $user) {
-            if (!in_array($user, $users)) {
+            if (!$this->hasUser($user)) {
                 $this->removeUser($user);
             }
         }
@@ -157,22 +127,14 @@ class Project
         }
     }
 
-    /**
-     * @param User $user
-     *
-     * @return bool
-     */
-    public function hasUser(User $user)
+    public function hasUser(User $user): bool
     {
         return $this->users->contains($user);
     }
 
-    /**
-     * @param User $user
-     */
-    public function addUser(User $user)
+    public function addUser(User $user): void
     {
-        if (!$this->users->contains($user)) {
+        if (!$this->hasUser($user)) {
             $this->users->add($user);
             if (!$user->hasProject($this)) {
                 $user->addProject($this);
@@ -180,12 +142,9 @@ class Project
         }
     }
 
-    /**
-     * @param User $user
-     */
-    public function removeUser(User $user)
+    public function removeUser(User $user): void
     {
-        if ($this->users->contains($user)) {
+        if ($this->hasUser($user)) {
             $this->users->removeElement($user);
             if ($user->hasProject($this)) {
                 $user->removeProject($this);
@@ -193,7 +152,7 @@ class Project
         }
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->name;
     }
