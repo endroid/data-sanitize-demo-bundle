@@ -14,11 +14,11 @@ use Endroid\DataSanitizeDemoBundle\Entity\Project;
 use Endroid\DataSanitizeDemoBundle\Entity\Tag;
 use Endroid\DataSanitizeDemoBundle\Entity\Task;
 use Endroid\DataSanitizeDemoBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-final class GenerateDataCommand extends ContainerAwareCommand
+final class GenerateDataCommand extends Command
 {
     private $entityManager;
 
