@@ -16,7 +16,7 @@
         "endroid/data-sanitize-bundle": "^1.0"
     },
     "require-dev": {
-        "endroid/test": "^1.1.4"
+        "endroid/test": "dev-master"
     },
     "autoload": {
         "psr-4": {
