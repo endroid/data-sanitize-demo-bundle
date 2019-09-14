@@ -8,7 +8,7 @@ endroid_data_sanitize:
             fields: ['id', 'name']
         task:
             class: Endroid\DataSanitizeDemoBundle\Entity\Task
-            fields: ['id', 'name', 'user', 'project']
+            fields: ['id', 'name', 'user.name', 'project.name']
         user:
             class: Endroid\DataSanitizeDemoBundle\Entity\User
             fields: ['id', 'name']

@@ -12,8 +12,8 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
-        "endroid/data-sanitize-bundle": "^1.0"
+        "php": ">=7.2",
+        "endroid/data-sanitize-bundle": "^1.1"
     },
     "require-dev": {
         "endroid/test": "dev-master"
