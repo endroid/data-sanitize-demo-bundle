@@ -31,7 +31,7 @@ final class GenerateDataCommand extends Command
         $this->entityManager = $entityManager;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('endroid:data-sanitize-demo:generate-data')
@@ -39,7 +39,7 @@ final class GenerateDataCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->truncateTables();
 
@@ -79,6 +79,8 @@ final class GenerateDataCommand extends Command
         }
 
         $this->entityManager->flush();
+
+        return 0;
     }
 
     private function truncateTables(): void

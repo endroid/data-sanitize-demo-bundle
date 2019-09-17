@@ -47,7 +47,7 @@ class Project
      */
     private $users;
 
-    public function __construct()
+    public function __construct(int $id, string $name)
     {
         $this->tasks = new ArrayCollection();
         $this->users = new ArrayCollection();
@@ -61,11 +61,6 @@ class Project
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function setName(string $name): void
-    {
-        $this->name = $name;
     }
 
     public function getTasks(): array
