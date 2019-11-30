@@ -101,8 +101,6 @@ class User
     }
 
     /**
-     * @param Project $project
-     *
      * @return bool
      */
     public function hasProject(Project $project)
@@ -110,9 +108,6 @@ class User
         return $this->projects->contains($project);
     }
 
-    /**
-     * @param Project $project
-     */
     public function addProject(Project $project)
     {
         if (!$this->hasProject($project)) {
@@ -123,9 +118,6 @@ class User
         }
     }
 
-    /**
-     * @param Project $project
-     */
     public function removeProject(Project $project)
     {
         if ($this->hasProject($project)) {
@@ -161,8 +153,6 @@ class User
     }
 
     /**
-     * @param Task $task
-     *
      * @return bool
      */
     public function hasTask(Task $task)
@@ -170,9 +160,6 @@ class User
         return $this->tasks->contains($task);
     }
 
-    /**
-     * @param Task $task
-     */
     public function addTask(Task $task)
     {
         if (!$this->hasTask($task)) {
@@ -183,9 +170,6 @@ class User
         }
     }
 
-    /**
-     * @param Task $task
-     */
     public function removeTask(Task $task)
     {
         if ($this->hasTask($task)) {
