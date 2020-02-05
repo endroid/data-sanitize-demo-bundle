@@ -49,6 +49,9 @@ class Project
 
     public function __construct(int $id, string $name)
     {
+        $this->id = $id;
+        $this->name = $name;
+
         $this->tasks = new ArrayCollection();
         $this->users = new ArrayCollection();
     }

@@ -59,8 +59,7 @@ final class GenerateDataCommand extends Command
         }
 
         for ($p = 1; $p <= $projectCount; ++$p) {
-            $project = new Project();
-            $project->setName('Project '.$p);
+            $project = new Project($p, 'Project '.$p);
             for ($u = 1; $u <= $projectUserCount; ++$u) {
                 $user = new User();
                 $user->setName('User '.$currentUser);
