@@ -13,10 +13,15 @@
     ],
     "require": {
         "php": ">=7.2",
-        "endroid/data-sanitize-bundle": "^1.1"
+        "endroid/data-sanitize-bundle": "^1.1",
+        "endroid/installer": "^1.2.2"
     },
     "require-dev": {
-        "endroid/test": "dev-master"
+        "endroid/quality": "dev-master"
+    },
+    "suggest": {
+        "roave/security-advisories": "Avoids installation of package versions with vulnerabilities",
+        "symfony/security-checker": "Checks your composer.lock for vulnerabilities"
     },
     "autoload": {
         "psr-4": {
