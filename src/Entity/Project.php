@@ -28,6 +28,11 @@ class Project
     private $id;
 
     /**
+     * @ORM\Column(type="guid")
+     */
+    private $referenceId;
+
+    /**
      * @ORM\Column(type="string")
      */
     private $name;
@@ -47,9 +52,10 @@ class Project
      */
     private $users;
 
-    public function __construct(int $id, string $name)
+    public function __construct(int $id, string $referenceId, string $name)
     {
         $this->id = $id;
+        $this->referenceId = $referenceId;
         $this->name = $name;
 
         $this->tasks = new ArrayCollection();
@@ -59,6 +65,11 @@ class Project
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getReferenceId(): string
+    {
+        return $this->referenceId;
     }
 
     public function getName(): string

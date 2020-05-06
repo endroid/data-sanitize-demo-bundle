@@ -16,6 +16,7 @@ use Endroid\DataSanitizeDemoBundle\Entity\Project;
 use Endroid\DataSanitizeDemoBundle\Entity\Tag;
 use Endroid\DataSanitizeDemoBundle\Entity\Task;
 use Endroid\DataSanitizeDemoBundle\Entity\User;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -59,7 +60,7 @@ final class GenerateDataCommand extends Command
         }
 
         for ($p = 1; $p <= $projectCount; ++$p) {
-            $project = new Project($p, 'Project '.$p);
+            $project = new Project($p, Uuid::uuid4()->toString(), 'Project '.$p);
             for ($u = 1; $u <= $projectUserCount; ++$u) {
                 $user = new User();
                 $user->setName('User '.$currentUser);
