@@ -23,11 +23,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class GenerateDataCommand extends Command
 {
-    private $entityManager;
+    protected static $defaultName = 'endroid:data-sanitize-demo:generate-data';
 
-    public function __construct(?string $name = null, EntityManagerInterface $entityManager)
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        parent::__construct($name);
+        parent::__construct();
 
         $this->entityManager = $entityManager;
     }
@@ -35,7 +37,6 @@ final class GenerateDataCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('endroid:data-sanitize-demo:generate-data')
             ->setDescription('Generate demo data')
         ;
     }
