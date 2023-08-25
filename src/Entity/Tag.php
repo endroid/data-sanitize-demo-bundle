@@ -15,13 +15,16 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
+ *
  * @ORM\Table(name="data_sanitize_demo_tag")
  */
 class Tag
 {
     /**
      * @ORM\Column(type="integer")
+     *
      * @ORM\Id
+     *
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;

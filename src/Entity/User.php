@@ -16,13 +16,16 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
+ *
  * @ORM\Table(name="data_sanitize_demo_user")
  */
 class User
 {
     /**
      * @ORM\Column(type="integer")
+     *
      * @ORM\Id
+     *
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
@@ -34,6 +37,7 @@ class User
 
     /**
      * @ORM\ManyToMany(targetEntity="Endroid\DataSanitizeDemoBundle\Entity\Project", mappedBy="users", cascade={"persist"})
+     *
      * @ORM\JoinColumn(name="data_sanitize_example_user_project")
      */
     protected $projects;
