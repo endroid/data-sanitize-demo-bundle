@@ -2,138 +2,40 @@
 
 declare(strict_types=1);
 
-/*
- * (c) Jeroen van den Enden <info@endroid.nl>
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
 namespace Endroid\DataSanitizeDemoBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- *
- * @ORM\Table(name="data_sanitize_demo_task")
- */
-class Task
+#[ORM\Entity]
+#[ORM\Table(name: 'data_sanitize_demo_task')]
+class Task implements \Stringable
 {
-    /**
-     * @ORM\Column(type="integer")
-     *
-     * @ORM\Id
-     *
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+    /** @var Collection<int, Tag> */
+    #[ORM\ManyToMany(targetEntity: Tag::class)]
+    #[ORM\JoinTable(name: 'data_sanitize_demo_task_tag')]
+    #[ORM\JoinColumn(name: 'task_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'tag_id', referencedColumnName: 'id')]
+    public Collection $tags;
 
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $name;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Endroid\DataSanitizeDemoBundle\Entity\Tag", cascade={"persist"})
-     *
-     * @ORM\JoinTable(
-     *      name="data_sanitize_demo_task_tag",
-     *      joinColumns={@ORM\JoinColumn(name="task_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
-     * )
-     */
-    protected $tags;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Endroid\DataSanitizeDemoBundle\Entity\User", inversedBy="tasks", cascade={"persist"})
-     */
-    protected $user;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Endroid\DataSanitizeDemoBundle\Entity\Project", inversedBy="tasks", cascade={"persist"})
-     */
-    protected $project;
-
-    /**
-     * Creates a new instance.
-     */
-    public function __construct()
-    {
-        $this->tags = new ArrayCollection();
+    /** @param array<Tag> $tags */
+    public function __construct(
+        #[ORM\Id]
+        #[ORM\Column(type: 'integer')]
+        public readonly int $id,
+        #[ORM\Column(type: 'string')]
+        public string $name,
+        #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'tasks')]
+        public User $user,
+        #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'tasks')]
+        public Project $project,
+        array $tags
+    ) {
+        $this->tags = new ArrayCollection($tags);
     }
 
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return Tag[]
-     */
-    public function getTags()
-    {
-        return $this->tags->toArray();
-    }
-
-    /**
-     * @param Tag[] $tags
-     */
-    public function setTags(array $tags)
-    {
-        $this->tags = $tags;
-    }
-
-    /**
-     * @return User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user)
-    {
-        $this->user = $user;
-    }
-
-    /**
-     * @return Project
-     */
-    public function getProject()
-    {
-        return $this->project;
-    }
-
-    /**
-     * @param Project $project
-     */
-    public function setProject($project)
-    {
-        $this->project = $project;
-    }
-
-    public function __toString()
+    public function __toString(): string
     {
         return $this->name;
     }

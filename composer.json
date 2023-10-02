@@ -14,8 +14,7 @@
     "require": {
         "php": "^8.1",
         "endroid/data-sanitize-bundle": "^1.1",
-        "endroid/installer": "^1.2.2",
-        "ramsey/uuid": "^3.6||^4.0"
+        "endroid/installer": "^1.2.2"
     },
     "require-dev": {
         "endroid/quality": "dev-master"
