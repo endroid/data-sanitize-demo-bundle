@@ -26,7 +26,7 @@ class User implements \Stringable
         #[ORM\Column(type: 'integer')]
         public readonly int $id,
         #[ORM\Column(type: 'string')]
-        public string $name
+        public string $name,
     ) {
         $this->projects = new ArrayCollection();
         $this->tasks = new ArrayCollection();

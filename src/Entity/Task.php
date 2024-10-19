@@ -30,7 +30,7 @@ class Task implements \Stringable
         public User $user,
         #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'tasks')]
         public Project $project,
-        array $tags
+        array $tags,
     ) {
         $this->tags = new ArrayCollection($tags);
     }

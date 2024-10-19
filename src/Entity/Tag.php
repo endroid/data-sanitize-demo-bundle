@@ -15,7 +15,7 @@ class Tag implements \Stringable
         #[ORM\Column(type: 'integer')]
         public readonly int $id,
         #[ORM\Column(type: 'string')]
-        public string $name
+        public string $name,
     ) {
     }
 

@@ -23,7 +23,7 @@ class Project implements \Stringable
         #[ORM\Column(type: 'string')]
         public string $name,
         #[ORM\Column(type: 'string')]
-        public string $referenceId
+        public string $referenceId,
     ) {
         $this->tasks = new ArrayCollection();
     }

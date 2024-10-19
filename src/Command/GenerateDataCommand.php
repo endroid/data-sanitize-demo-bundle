@@ -18,7 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class GenerateDataCommand extends Command
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager
+        private readonly EntityManagerInterface $entityManager,
     ) {
         parent::__construct();
     }
