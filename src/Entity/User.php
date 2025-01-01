@@ -13,8 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 class User implements \Stringable
 {
     /** @var Collection<int, Project> */
-    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'users', cascade: ['persist'])]
-    #[ORM\JoinColumn(name: 'data_sanitize_example_user_project')]
+    #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: 'users', cascade: ['persist'])]
+    #[ORM\JoinTable(name: 'data_sanitize_demo_user_project')]
     public Collection $projects;
 
     /** @var Collection<int, Task> */
