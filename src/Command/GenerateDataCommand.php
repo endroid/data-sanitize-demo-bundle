@@ -23,6 +23,7 @@ final class GenerateDataCommand extends Command
         parent::__construct();
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->truncateTables();
@@ -34,7 +35,7 @@ final class GenerateDataCommand extends Command
 
         $tags = [];
         for ($tagId = 1; $tagId <= $tagCount; ++$tagId) {
-            $tag = new Tag($tagId, 'Tag '.$tagId);
+            $tag = new Tag($tagId, 'Tag ' . $tagId);
             $this->entityManager->persist($tag);
             $tags[$tagId] = $tag;
         }
@@ -42,14 +43,18 @@ final class GenerateDataCommand extends Command
         $userNumber = 1;
         $taskNumber = 1;
         for ($projectNumber = 1; $projectNumber <= $projectCount; ++$projectNumber) {
-            $project = new Project($projectNumber, 'Project '.$projectNumber, chr(65 + $projectNumber));
+            $project = new Project($projectNumber, 'Project ' . $projectNumber, chr(65 + $projectNumber));
             $this->entityManager->persist($project);
             for ($projectUserNumber = 1; $projectUserNumber <= $projectUserCount; ++$projectUserNumber) {
-                $user = new User($userNumber, 'User '.$userNumber);
+                $user = new User($userNumber, 'User ' . $userNumber);
                 $this->entityManager->persist($user);
                 ++$userNumber;
-                for ($projectUserTaskNumber = 1; $projectUserTaskNumber <= $projectUserTaskCount; ++$projectUserTaskNumber) {
-                    $task = new Task($taskNumber, 'Task '.$taskNumber, $user, $project, $tags);
+                for (
+                    $projectUserTaskNumber = 1;
+                    $projectUserTaskNumber <= $projectUserTaskCount;
+                    ++$projectUserTaskNumber
+                ) {
+                    $task = new Task($taskNumber, 'Task ' . $taskNumber, $user, $project, $tags);
                     $this->entityManager->persist($task);
                     ++$taskNumber;
                 }

@@ -4,5 +4,5 @@ services:
         autoconfigure: true
         public: false
 
-    Endroid\DataSanitizeDemoBundle\:
-        resource: '../../../src'
+    Endroid\DataSanitizeDemoBundle\Command\:
+        resource: '../../Command'

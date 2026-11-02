@@ -43,7 +43,7 @@ jobs:
       - name: Test against highest versions
         run: |
           vendor/bin/unit-test
-          vendor/bin/functional-test
+          vendor/bin/functional-test 7.4
 
       - name: Check code quality
         run: vendor/bin/code-quality
