@@ -16,9 +16,9 @@ class Tag implements \Stringable
         public readonly int $id,
         #[ORM\Column(type: 'string')]
         public string $name,
-    ) {
-    }
+    ) {}
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->name;

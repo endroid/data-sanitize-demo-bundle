@@ -28,6 +28,7 @@ class Project implements \Stringable
         $this->tasks = new ArrayCollection();
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->name;

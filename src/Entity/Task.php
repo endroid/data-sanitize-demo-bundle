@@ -19,7 +19,7 @@ class Task implements \Stringable
     #[ORM\InverseJoinColumn(name: 'tag_id', referencedColumnName: 'id')]
     public Collection $tags;
 
-    /** @param array<Tag> $tags */
+    /** @param array<int, Tag> $tags */
     public function __construct(
         #[ORM\Id]
         #[ORM\Column(type: 'integer')]
@@ -35,6 +35,7 @@ class Task implements \Stringable
         $this->tags = new ArrayCollection($tags);
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->name;

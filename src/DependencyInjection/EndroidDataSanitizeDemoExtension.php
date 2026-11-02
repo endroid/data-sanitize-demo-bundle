@@ -11,9 +11,10 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 final class EndroidDataSanitizeDemoExtension extends Extension
 {
+    #[\Override]
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yaml');
     }
 }
